@@ -1,0 +1,52 @@
+
+body {
+    background-image: url("C:\Users\mma99\Desktop\Capstone Front End\wit\src\images\background.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+div {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    background-color: #54392d;
+    background-blend-mode:luminosity;
+    color: white;
+    font-size: 15px;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+
+.divbuttonborder{
+    border-style: solid;
+    border-color: slategray;
+    border-width: 5px;
+    border-radius: 20%;
+    flex-direction: column;
+    padding-right: 2px;
+    padding-left: 2px;
+    background-color: slategray;
+    color:black;
+   
+}
+
+.body-container {
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+.section1{
+
+}
