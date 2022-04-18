@@ -1,6 +1,13 @@
 import './Layout.css';
-
+import React, {useState} from 'react';
 function Layout() {
+    const loginUser ={
+        email:"",
+        password:""
+    }
+
+    const[user, setUser] = useState ({});   
+    const [error,setError] = useState ();
   return (
     <div >
       <header>
