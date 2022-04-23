@@ -22,7 +22,7 @@ const UserSignIn = () => {
     .then(response => {
       localStorage.setItem('loggedInUser',response.data.id);
       console.log(response.data)
-      history.push('/')
+      history.push('/user-profile')
     })
   }
 

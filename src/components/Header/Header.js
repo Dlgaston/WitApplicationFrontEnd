@@ -6,55 +6,59 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-function Header() {
-  
-  const [user, setUser] = useState({});
-  useEffect(() => {
-      const params = {
-          id: localStorage.getItem("loggedInUser"),
-      }; console.log(localStorage)
-      axios.get(`http://localhost:8080/getUser/${params.id}`,  {
-          headers: {
-              'Content-Type': 'application/json'
-          }
-       
-      }).then((response) => {
-          setUser(response.data);
-      }).catch((error) => {
-          console.log('error in getting account')
 
-      });
-  },[]);
+function Header() {
 
   const signOutSubmitHandler = () => {
     console.log('sign out clicked');
     localStorage.clear();
-    history.push('/');
   }
-   const toggleHeader = () => {
-     
-   }
+  const toggleHeader = () => {
+    if (localStorage.getItem('loggedInUser')) {
+      return (
+        <ul className="nav-list">
+          <li className="nav-item">
+            <a className="nav-item-text" href="/"><img className="nav-logo" src={Logo} alt="Logo" /></a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-item-text" href="#">About us</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-item-text" href="#">Contact</a>
+          </li>
+          <li className="nav-item">
+
+            <a className="logged-in-btn-header" onClick={signOutSubmitHandler} href="/">Sign Out</a>
+          </li>
+
+        </ul>
+      )
+    } else {
+      return (
+        <ul className="nav-list">
+          <li className="nav-item">
+            <a className="nav-item-text" href="/"><img className="nav-logo" src={Logo} alt="Logo" /></a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-item-text" href="#">About us</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-item-text" href="#">Contact</a>
+          </li>
+          <li className="nav-item">
+            <a className="btn-header" href="/create-account">Create Account</a>
+          </li>
+          <li className="nav-item">
+            <a className="btn-header" href="/sign-in">Sign In</a>
+          </li>
+        </ul>
+      )
+    }
+  }
   return (
     <div >
       <nav className="nav-container">
-          <ul className="nav-list">
-              <li className="nav-item">
-              <a className="nav-item-text"href="/"><img className="nav-logo"src={Logo} alt ="Logo"/></a>
-              </li>
-              <li className="nav-item">
-                  <a className="nav-item-text"href="#">About us</a>
-              </li>
-              <li className="nav-item">
-              <a className="nav-item-text"href="#">Contact</a>
-              </li>
-              <li className="nav-item">
-                <a className="btn-header" href="/create-account">Create Account</a>
-              </li>
-              <li className="nav-item">
-                <a className="btn-header" href="/sign-in">Sign In</a>
-              </li>
-             
-          </ul>
+        {toggleHeader()}
       </nav>
 
     </div >

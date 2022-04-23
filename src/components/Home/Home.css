@@ -13,13 +13,14 @@ html,body{
     width:100vw;
 }
 body{
-    background-color: #0b1626;
+    background-image: url(C:\Users\mma99\Desktop\WitApplicationFrontEnd\src\images\background.jpg);
+    /* background-color: #0b1626; */
     background-repeat: no-repeat;
     background-size: cover;
     background-position:fixed;
 }
 .nav-container{
-    background-color: #ededed;
+    background-color: #404142;
     box-shadow: inset 0px -2px 4px rgb(10, 10, 10);
     height:5vh;
     display:flex;
@@ -40,7 +41,7 @@ body{
 }
 .nav-item-text {
     text-decoration: none;
-    color:black;
+    color:#e0e0e0;
 
 }
 .nav-item:first-child{
@@ -64,7 +65,7 @@ body{
     align-items: center;
 }
 .btn-header{
-    background-color: #0b1626;
+    background-color: #e0e0e0;
     border:none;
     outline: none;
     border-radius: 1rem;
@@ -72,9 +73,21 @@ body{
     font-size: large;
     padding:5px;
     text-decoration: none;
-    color:#e0e0e0;
+    color:#0b1626;
 }
 
+.logged-in-btn-header{
+    background-color: #e0e0e0;
+    border:none;
+    outline: none;
+    border-radius: 1rem;
+    box-shadow:2px 2px 4px rgb(12, 12, 12); 
+    font-size: large;
+    padding:5px;
+    text-decoration: none;
+    color:#0b1626;
+    margin-left: 5rem;
+}
 
 .flexbox-container{
 display:flex;
@@ -92,7 +105,7 @@ height:100%;
     width: 20%;
     justify-content: center;
     align-items: center;
-
+    
 }
 .flexbox-item2{
     width: 60%;
@@ -101,7 +114,10 @@ height:100%;
    align-items: center;
 }
 .flexbox-item3{
+    display:flex;
     width: 20%;
+    justify-content: center;
+    align-items: center;
     
 }
 .p-container{
@@ -111,7 +127,7 @@ height:100%;
     background-color: #ededed;
     border-radius: 5%;
     height: 50%;
-    width: 100%;
+    width: 95%;
     box-shadow:inset -2px -2px 4px rgb(17, 17, 17);
     margin-left: 25px;
     color:#0b1626;
@@ -190,3 +206,23 @@ height:100%;
    cursor: pointer;
 }
 
+.profilebox-item1{
+    display:flex;
+    width: 20%;
+    justify-content: center;
+    align-items: center;
+    
+}
+.profilebox-item2{
+    width: 60%;
+    display:flex;
+    justify-content: center;
+   align-items: center;
+}
+.profilebox-item3{
+    display:flex;
+    width: 20%;
+    justify-content: center;
+    align-items: center;
+    
+}
