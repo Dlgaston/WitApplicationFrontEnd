@@ -22,7 +22,7 @@ function Thankyou() {
     },[]);
 
     return (
-        <div>
+        <div className='body-background-one'>
             <div>Thank you {user.first_Name}</div>
         </div>
       

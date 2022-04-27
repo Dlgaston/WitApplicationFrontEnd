@@ -8,8 +8,8 @@ const CreateAccount = () => {
     const history = useHistory();
     const [user, setUser] = useState({
         
-        first_Name: "",
-        last_Name: "",
+        firstName: "",
+        LastName: "",
         username: "",
         email: "",
         password: "",
@@ -25,8 +25,7 @@ const CreateAccount = () => {
     const createAccountSubmitHandler = () => {
         axios.post("http://localhost:8080/create-account", user).then((response) => {
             localStorage.setItem("loggedInUser", response.data.id);
-            console.log(response.data);
-            history.push("/thank-you"); 
+            history.push("/user-profile"); 
         }).catch((error) => {
             console.log("throwing error on createAccount");
         });
@@ -35,7 +34,7 @@ const CreateAccount = () => {
 
 
     return (
-        <div >
+        <div className='body-background-one'>
             <div className="body-container">
                 <div className="flexbox-container">
                     <div className="flexbox-item flexbox-item1" >
@@ -44,10 +43,10 @@ const CreateAccount = () => {
                         <h1 className='text-white-center'>Sign up here!</h1>
                         <form className='form-container'>
                             <div className="flexbox-item flexbox-item2">
-                                <input name="first_Name" value={user.first_Name} onChange={userChangeHandler} type="text" className="form-control" id="inputFirst_Name" placeholder='First Name'/>
+                                <input name="firstName" value={user.firstName} onChange={userChangeHandler} type="text" className="form-control" id="inputfirstName" placeholder='First Name'/>
                             </div>
                             <div className="flexbox-item flexbox-item2">
-                                <input name="last_Name" value={user.last_Name} onChange={userChangeHandler} type="text" className="form-control" id="inputLast_Name" placeholder='Last Name'/>
+                                <input name="LastName" value={user.LastName} onChange={userChangeHandler} type="text" className="form-control" id="inputLastName" placeholder='Last Name'/>
                             </div>
 
                             <div className="flexbox-item flexbox-item2">

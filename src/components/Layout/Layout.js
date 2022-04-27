@@ -9,6 +9,7 @@ import UserProfile from "../Profile/UserProfile";
 import { useEffect } from "react";
 import axios from "axios";
 import Workoutlist from "../WorkoutPlans/Workoutlist";
+import WorkoutPlan from "../WorkoutPlans/WorkoutPlan";
 
 const Layout = () => {
 
@@ -20,7 +21,8 @@ const toggleRoutes = () =>{
         <Route exact path ="/" component={UserProfile}/>
         <Route path="/user-profile" component={UserProfile}/>
         <Route path="/workout-list" component={Workoutlist}/>
-   </div>
+        <Route path ="/workout-plan" component={WorkoutPlan}/>
+      </div>
     )
    
   }
