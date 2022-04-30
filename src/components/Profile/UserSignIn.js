@@ -15,13 +15,11 @@ const UserSignIn = () => {
     const tempSignIn = {...signInUser};
     tempSignIn[name] = value;
     setSignInUser(tempSignIn);
-    console.log(signInUser)
   }
   const signInSubmitHander = () => {
     axios.post('http://localhost:8080/login', signInUser)
     .then(response => {
       localStorage.setItem('loggedInUser',response.data.id);
-      console.log(response.data)
       history.push('/user-profile')
     })
   }

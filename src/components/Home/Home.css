@@ -385,7 +385,7 @@ body {
 }
 
 #history-list tr:nth-child(even) {
-    background-color: #949393;
+    background-color: #c7c7c7;
 }
 
 #history-list tr:hover {
@@ -398,4 +398,32 @@ body {
     text-align: left;
     background-color: #404142;
     color: white;
+}
+.workoutList-button {
+    background-color: #e0e0e0;
+    border: none;
+    outline: none;
+    border-radius: 1rem;
+    box-shadow: 2px 2px 4px rgb(12 12 12);
+    font-size: large;
+    padding: 5px;
+    text-decoration: none;
+    color: #0b1626;
+    width: 75px;
+    height: 30px;
+    font-size: medium;
+    cursor: pointer;
+}
+.divflexcol{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 5px;
+}
+.divrowgap {
+    flex-direction: row;
+    display: flex;
+    gap: 10rem;
+    margin-bottom: 10px;
 }

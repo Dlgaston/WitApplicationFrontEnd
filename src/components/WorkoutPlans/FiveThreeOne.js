@@ -1,14 +1,14 @@
 import axios from 'axios';
-import React, {useState, useEffect} from 'react'
-
-function FiveThreeOne() {
-
+import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+function FiveThreeOne(props) {
+    const history = useHistory();
     const [user, setUser] = useState({});
     const [orm, setOrm] = useState({
-        benchPressMax: '',
-        squatMax:'',
-        overHeadPressMax:'',
-        deadliftMax:'',
+        benchPressMax: 0,
+        squatMax: 0,
+        overHeadPressMax: 0,
+        deadliftMax: 0,
     })
     useEffect(() => {
         const params = {
@@ -27,65 +27,92 @@ function FiveThreeOne() {
         });
     }, []);
 
+
     const ormChangeHandler = (event) => {
         const name = event.target.name;
         const value = event.target.value;
         const tempOrm = { ...orm };
         tempOrm[name] = value;
         setOrm(tempOrm)
+        console.log(orm)
     }
 
     const ormSubmitHandler = () => {
-        axios.post(`http://localhost:8080/add-oneRepMaxes/${user.id}`, orm , {
+        user.plan.orm = Object.assign({orm})
+        axios.post(`http://localhost:8080/addORM`, orm, {
             headers: {
-                'Content-Type':'application/json'
+                'Content-Type': 'application/json'
             }
         }).then((response) => {
-            setOrm(response.data)
+           setOrm(response.data)
         })
     }
-   
 
-  return (
-    <div className='body-background-two'>
+    const [plan, setPlan] = useState({
+        name: 'Five Three One',
+       ormId:{orm}
+    })
+    const planSubmitHandler = () => {
+        plan.ormId = Object.assign({orm})
+        console.log(plan)
+        axios.post(`http://localhost:8080/createPlan/${user.id}`, plan, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            console.log(plan);
+            setPlan(response.data)
+            history.push('/user-profile')
+        })
+    }
+
+
+    return (
+        <div className='body-background-two'>
             <div className="plan-body-container">
                 <div className="planbox-container">
-                   <div>
-                       <h1 className='text-white-center'>
-                           Five Three One
-                       </h1>
+                    <div className='divflexcol'>
+                        <h1 className='text-white-center'>
+                            Five Three One
+                        </h1>
+                        <div className='divrowgap'>
+                            <div><button className='workoutList-button' onClick={ormSubmitHandler}>Save</button></div>
+                            <div><button className='workoutList-button' onClick={planSubmitHandler}>Add</button></div>
+                            <div><button className='workoutList-button' onClick={props.onClick}>Go Back</button></div>
+                        </div>
                         <table className='workoutplan-header' id='workout-list'>
-                        <thead id='workout-list'>
-                            <tr>
-                                <th></th>
-                                <th>Day One</th>
-                                <th>Day Two</th>
-                                <th>Day Three</th>
-                                <th>Day Four</th>
-                                <th>Day Five</th>
-                                <th>Day Six</th>
-                                <th>Day Seven</th>
-                            </tr>
-                        </thead>
-                        <tbody id='workout-list'>
-                            <tr>
-                                <th>
-                                    Format
-                                </th>
-                                <td>Bench Press and Overhead Press</td>
-                                <td>Barbell Squat and Deadlift</td>
-                                <td>Rest Day</td>
-                                <td>Bench Press and Overhead Press</td>
-                                <td>Barbell Squat and Deadlift</td>
-                                <td>Rest Day</td>
-                                <td>Rest Day</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            <thead id='workout-list'>
+                                <tr>
+                                    <th></th>
+                                    <th>Day One</th>
+                                    <th>Day Two</th>
+                                    <th>Day Three</th>
+                                    <th>Day Four</th>
+                                    <th>Day Five</th>
+                                    <th>Day Six</th>
+                                    <th>Day Seven</th>
+                                </tr>
+                            </thead>
+                            <tbody id='workout-list'>
+                                <tr>
+                                    <th>
+                                        Format
+                                    </th>
+                                    <td>Bench Press and Overhead Press</td>
+                                    <td>Barbell Squat and Deadlift</td>
+                                    <td>Rest Day</td>
+                                    <td>Bench Press and Overhead Press</td>
+                                    <td>Barbell Squat and Deadlift</td>
+                                    <td>Rest Day</td>
+                                    <td>Rest Day</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div className="flexbox-item listbox-item3" >
                         <div className='workoutplan-container'>
-                            <div>
+                            <div className='divflexcol'> 
+                            <input type="number" name="benchPressMax" value={orm.benchPressMax} id="inputBenchPressMax" placeholder='Enter bench' onChange={ormChangeHandler}/>
                                 <table className='workout-table' id='workout-list'>
                                     <thead id='workout-list'>
                                         <tr>
@@ -125,12 +152,13 @@ function FiveThreeOne() {
                                             <td>90% x 3 + repetitions</td>
                                             <td>95% x 1 + repetitions</td>
                                             <td>60% x 5 repetitions</td>
-                                        </tr>
+                                        </tr>        
                                     </tbody>
                                 </table>
                             </div>
-                            <div>
-                                <table className='workout-table' id='workout-list'>
+                            <div className='divflexcol'> 
+                            <input type="number" name="overHeadPressMax" value={orm.overHeadPressMax} id="inputOverHeadPressMax" placeholder='Enter overhead press' onChange={ormChangeHandler}/>
+                                <table className='workout-table' id='workout-list'>                                  
                                     <thead id='workout-list'>
                                         <tr>
                                             <th>Barbell Overhead Press
@@ -175,7 +203,8 @@ function FiveThreeOne() {
                             </div>
                         </div>
                         <div className='workoutplan-container'>
-                            <div>
+                        <div className='divflexcol'> 
+                            <input type="number" name="squatMax" value={orm.squatMax} id="inputSquatMax" placeholder='Enter squat' onChange={ormChangeHandler}/>
                                 <table className='workout-table' id='workout-list'>
                                     <thead>
                                         <tr>
@@ -219,7 +248,8 @@ function FiveThreeOne() {
                                     </tbody>
                                 </table>
                             </div>
-                            <div>
+                            <div className='divflexcol'> 
+                            <input type="number" name="deadliftMax" value={orm.deadliftMax} id="inputDeadliftMax" placeholder='Enter deadlift' onChange={ormChangeHandler}/>
                                 <table className='workout-table' id='workout-list'>
                                     <thead>
                                         <tr>
@@ -268,7 +298,7 @@ function FiveThreeOne() {
                 </div>
             </div>
         </div>
-  )
+    )
 }
 
 export default FiveThreeOne

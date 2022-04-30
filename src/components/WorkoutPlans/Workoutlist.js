@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import '../Home/Home.css'
+import FiveThreeOne from './FiveThreeOne';
 
 const Workoutlist = () => {
     const [user, setUser] = useState({});
-    const history = useHistory();
+    const [table, setTable] = useState('')
 
     useEffect(() => {
         const params = {
@@ -23,33 +23,66 @@ const Workoutlist = () => {
             console.log('error in getting account')
 
         });
-        axios.get(`http://localhost:8080/showallworkouts`, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-
-        }).then((response) => {
-            setPlan(response.data);
-        }).catch((error) => {
-            console.log('error in getting workouts')
-        });
     }, []);
+    const setTableState = (event) => {
+        setTable(event.target.name)
+        
+    }
 
-    const [plan, setPlan] = useState([]);
-
-    const workoutChangeHandler = (event) => {
-        axios.post(`http://localhost:8080/chooseworkout/${event.target.value}`, user, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-
-        }).then((response) => {
-            history.push("/user-profile");
-        })
-
-
+    function tableDisplay() {
+        if (table === 'Five Three One') {
+            return (
+                <div >
+                    <FiveThreeOne 
+                    onClick = {setTableState}
+                    />
+                </div>
+            )
+        } else {
+            return (
+                <div className="flexbox-item listbox-item2" >
+                    <table id='workout-list'>
+                        <thead>
+                            <tr>
+                                <th>Workout Plan Name</th>
+                                <th>Level</th>
+                                <th>Type</th>
+                                <th>Weeks of program</th>
+                                <th>Days of training</th>
+                                <th>Choose Workout</th>
+                            </tr>
+                        </thead>
+                        <tbody id='workout-list'>
+                            <tr>
+                                <td>
+                                    Five Three One
+                                </td>
+                                <td>
+                                    Beginner
+                                </td>
+                                <td>
+                                    Strength
+                                </td>
+                                <td>
+                                    4
+                                </td>
+                                <td>
+                                    4
+                                </td>
+                                <td>
+                                    <button className='workout-list-button' onClick={setTableState} name = 'Five Three One'>
+                                        View Plan
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
 
     }
+
     return (
 
         <div className='body-background-two'>
@@ -57,54 +90,7 @@ const Workoutlist = () => {
                 <div className="flexbox-container">
                     <div className="flexbox-item listbox-item1" >
                     </div>
-                    <div className="flexbox-item listbox-item2" >
-                        <table id='workout-list'>
-                            <thead>
-                                <tr>
-                                    <th>Workout Plan Name</th>
-                                    <th>Level</th>
-                                    <th>Type</th>
-                                    <th>Weeks of program</th>
-                                    <th>Days of training</th>
-                                    <th>Choose Workout</th>
-                                </tr>
-                            </thead>
-                            {
-                                plan.map((item) => {
-                                    return (
-
-                                        <tbody id='workout-list'>
-                                            <tr>
-                                                <td>
-                                                    {item.name}
-                                                </td>
-                                                <td>
-                                                    {item.workoutLevel}
-                                                </td>
-                                                <td>
-                                                    {item.typeOfWorkout}
-                                                </td>
-                                                <td>
-                                                    {item.numberOfWeeks}
-                                                </td>
-                                                <td>
-                                                    {item.days}
-                                                </td>
-                                                <td>
-                                                    <button className='workout-list-button' value={item.id} onClick={workoutChangeHandler}>
-                                                        Add!
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    )
-                                })
-                            }
-
-
-                        </table>
-                    </div>
-
+                   {tableDisplay()}
                 </div>
             </div>
         </div>
