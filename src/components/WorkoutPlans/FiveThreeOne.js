@@ -4,12 +4,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 function FiveThreeOne(props) {
     const history = useHistory();
     const [user, setUser] = useState({});
-    const [orm, setOrm] = useState({
-        benchPressMax: 0,
-        squatMax: 0,
-        overHeadPressMax: 0,
-        deadliftMax: 0,
-    })
+
     useEffect(() => {
         const params = {
             id: localStorage.getItem("loggedInUser"),
@@ -27,30 +22,8 @@ function FiveThreeOne(props) {
         });
     }, []);
 
-
-    const ormChangeHandler = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        const tempOrm = { ...orm };
-        tempOrm[name] = value;
-        setOrm(tempOrm)
-        console.log(orm)
-    }
-
-    const ormSubmitHandler = () => {
-        user.plan.orm = Object.assign({orm})
-        axios.post(`http://localhost:8080/addORM`, orm, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-           setOrm(response.data)
-        })
-    }
-
     const [plan, setPlan] = useState({
         name: 'Five Three One',
-       ormId:{orm}
     })
     const planSubmitHandler = () => {
         axios.post(`http://localhost:8080/createPlan/${user.id}`, plan, {
@@ -74,7 +47,6 @@ function FiveThreeOne(props) {
                             Five Three One
                         </h1>
                         <div className='divrowgap'>
-                            <div><button className='workoutList-button' onClick={ormSubmitHandler}>Save</button></div>
                             <div><button className='workoutList-button' onClick={planSubmitHandler}>Add</button></div>
                             <div><button className='workoutList-button' onClick={props.onClick}>Go Back</button></div>
                         </div>
@@ -109,8 +81,7 @@ function FiveThreeOne(props) {
                     </div>
                     <div className="flexbox-item listbox-item3" >
                         <div className='workoutplan-container'>
-                            <div className='divflexcol'> 
-                            <input type="number" name="benchPressMax" value={orm.benchPressMax} id="inputBenchPressMax" placeholder='Enter bench' onChange={ormChangeHandler}/>
+                            <div className='divflexcol'>
                                 <table className='workout-table' id='workout-list'>
                                     <thead id='workout-list'>
                                         <tr>
@@ -154,8 +125,7 @@ function FiveThreeOne(props) {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className='divflexcol'> 
-                            <input type="number" name="overHeadPressMax" value={orm.overHeadPressMax} id="inputOverHeadPressMax" placeholder='Enter overhead press' onChange={ormChangeHandler}/>
+                            <div className='divflexcol'>
                                 <table className='workout-table' id='workout-list'>                                  
                                     <thead id='workout-list'>
                                         <tr>
@@ -202,7 +172,6 @@ function FiveThreeOne(props) {
                         </div>
                         <div className='workoutplan-container'>
                         <div className='divflexcol'> 
-                            <input type="number" name="squatMax" value={orm.squatMax} id="inputSquatMax" placeholder='Enter squat' onChange={ormChangeHandler}/>
                                 <table className='workout-table' id='workout-list'>
                                     <thead>
                                         <tr>
@@ -247,7 +216,6 @@ function FiveThreeOne(props) {
                                 </table>
                             </div>
                             <div className='divflexcol'> 
-                            <input type="number" name="deadliftMax" value={orm.deadliftMax} id="inputDeadliftMax" placeholder='Enter deadlift' onChange={ormChangeHandler}/>
                                 <table className='workout-table' id='workout-list'>
                                     <thead>
                                         <tr>

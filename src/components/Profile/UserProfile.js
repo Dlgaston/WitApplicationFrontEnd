@@ -10,7 +10,7 @@ const UserProfile = () => {
   const [user, setUser] = useState({});
   const [plan, setPlan] = useState([]);
   const [currentPlan, setCurrentPlan] = useState({});
- const [activePlan, setActivePlan] =useState({});
+  const [activePlan, setActivePlan] = useState({});
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
@@ -50,24 +50,26 @@ const UserProfile = () => {
     });
 
   }, []);
-  
 
-const activePlanHandler = (event) => {
- setActivePlan(event.target.value)
- console.log(activePlan)
-}
 
-  function modalTable() {
-    if (modal)
+  const activePlanHandler = (event) => {
+    setActivePlan(event.target.value)
+    setModal(modal ? false : true);
+    console.log(activePlan)
+  }
+
+ 
+
+  function modalDisplay() {
+    if (modal) {
       return (
-        <div>
-        <PlanModal activePlan >
-        </PlanModal>
-        </div>
+          <PlanModal activePlan={activePlan} onClick={activePlanHandler}>
+          </PlanModal>
       )
     }
+  }
 
-  
+
 
   const [file, setFile] = useState({})
   const fileSelectHandler = (event) => {
@@ -143,7 +145,7 @@ const activePlanHandler = (event) => {
                             <td>{item.planStart}</td>
                             <td>{item.planEnd}</td>
                             <td>
-                              <button onClick={activePlanHandler} value = {item.id}>
+                              <button onClick={activePlanHandler} value = {item.id} >
                                 View Plan
                               </button>
                             </td>
@@ -153,14 +155,11 @@ const activePlanHandler = (event) => {
                     }
                   </tbody>
                 </table>
-                {modalTable()}
-                <div>
-                </div>
+                {modalDisplay()}
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div >
 
