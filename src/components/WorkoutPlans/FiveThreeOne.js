@@ -53,8 +53,6 @@ function FiveThreeOne(props) {
        ormId:{orm}
     })
     const planSubmitHandler = () => {
-        plan.ormId = Object.assign({orm})
-        console.log(plan)
         axios.post(`http://localhost:8080/createPlan/${user.id}`, plan, {
             headers: {
                 'Content-Type': 'application/json'

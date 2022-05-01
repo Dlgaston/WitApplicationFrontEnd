@@ -16,14 +16,14 @@ body {
 }
 
 .body-background-one {
-    background-image: url(C:\Users\mma99\Desktop\WitApplicationFrontEnd\src\images\background.jpg);
+    /*background-image: url(C:\Users\mma99\Desktop\WitApplicationFrontEnd\src\images\background.jpg);*/
     background-repeat: no-repeat;
     background-size: cover;
     background-position: fixed;
 }
 
 .body-background-two{
-    background-image: url(C:\Users\mma99\Desktop\WitApplicationFrontEnd\src\images\rubber_surface.jpg);
+    /*background-image: url(C:\Users\mma99\Desktop\WitApplicationFrontEnd\src\images\rubber_surface.jpg);*/
     background-repeat: no-repeat;
     background-size: cover;
     background-position: fixed;
@@ -426,4 +426,21 @@ body {
     display: flex;
     gap: 10rem;
     margin-bottom: 10px;
+}
+.modal-table{
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding:50px;
+    z-index: 1000;
+}
+.page-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right:0;
+    bottom: 0;
+    background-color: rgba(0,0,0, 0.3);
 }

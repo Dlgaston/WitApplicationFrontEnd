@@ -10,8 +10,8 @@ const UserProfile = () => {
   const [user, setUser] = useState({});
   const [plan, setPlan] = useState([]);
   const [currentPlan, setCurrentPlan] = useState({});
-  const [isOpen, setIsOpen] = useState(false);
-
+ const [activePlan, setActivePlan] =useState({});
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     const params = {
@@ -50,11 +50,25 @@ const UserProfile = () => {
     });
 
   }, []);
+  
 
-  const setModalState = (event) => {
-    setIsOpen(isOpen ? true === false:true)
-    
+const activePlanHandler = (event) => {
+ setActivePlan(event.target.value)
+ console.log(activePlan)
 }
+
+  function modalTable() {
+    if (modal)
+      return (
+        <div>
+        <PlanModal activePlan >
+        </PlanModal>
+        </div>
+      )
+    }
+
+  
+
   const [file, setFile] = useState({})
   const fileSelectHandler = (event) => {
     setFile(event.target.files[0]);
@@ -87,7 +101,6 @@ const UserProfile = () => {
   }
   return (
     <div className='body-background-one'>
-
       <div className="body-container">
         <div className="flexbox-container">
           <div className="flexbox-item profilebox-item1" >
@@ -129,20 +142,20 @@ const UserProfile = () => {
                             <td>{item.name}</td>
                             <td>{item.planStart}</td>
                             <td>{item.planEnd}</td>
-                            <td value={item.id}>
-                              <button onClick={setModalState}>
-                              View Plan
-                            </button>
-                              <PlanModal
-                              onClick={setModalState} plan={item}>
-                              </PlanModal></td>
+                            <td>
+                              <button onClick={activePlanHandler} value = {item.id}>
+                                View Plan
+                              </button>
+                            </td>
                           </tr>
                         )
                       })
                     }
                   </tbody>
-
                 </table>
+                {modalTable()}
+                <div>
+                </div>
               </div>
             </div>
           </div>
