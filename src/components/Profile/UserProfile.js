@@ -1,17 +1,19 @@
-import React, { Children, useState } from 'react'
+import React, {useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
 import '../Home/Home.css'
 import WIT_Mock from '../../images/WIT_MOCK.svg'
 import PlanModal from '../modals/PlanModal'
+import LineChart from '../modals/ProgressGraph/LineChart'
 
 
 const UserProfile = () => {
   const [user, setUser] = useState({});
   const [plan, setPlan] = useState([]);
   const [currentPlan, setCurrentPlan] = useState({});
-  const [activePlan, setActivePlan] = useState({});
+  const [activePlan, setActivePlan] = useState(0);
   const [modal, setModal] = useState(false);
+  const [graphModal, setGraphModal] = useState(false);
 
   useEffect(() => {
     const params = {
@@ -51,24 +53,95 @@ const UserProfile = () => {
 
   }, []);
 
+  function endPlanHandler() {
+    axios.post(`http://localhost:8080/endPlan/${user.id}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
 
+    }).then((response) => {
+      setCurrentPlan(response.data);
+    }).catch((error) => {
+      console.log('error in ending current Plan')
+    })
+  }
+
+  const endPlanDisplay = (item)=> {
+    if (!item.planEnd) {
+      return (
+        <button onClick={endPlanHandler} type='button' >End Plan</button>
+      )
+    } else {
+      return (
+        item.planEnd
+      )
+
+    }
+  }
   const activePlanHandler = (event) => {
     setActivePlan(event.target.value)
     setModal(modal ? false : true);
-    console.log(activePlan)
   }
 
- 
+
 
   function modalDisplay() {
     if (modal) {
       return (
-          <PlanModal activePlan={activePlan} onClick={activePlanHandler}>
-          </PlanModal>
+        <PlanModal planID={activePlan} onClick={activePlanHandler}>
+        </PlanModal>
       )
     }
   }
 
+  const progressGraphHandler = () => {
+    setGraphModal(graphModal ? false : true);
+  }
+
+  const planData = {
+    labels: plan.map((data) => data.planStart),
+    datasets: [{
+      label: "Bench Press Max",
+      data: plan.map((data) => data.ormId.benchPressMax),
+      backgroundColor: ['green'],
+      borderColor: "green",
+      borderWidth: 2
+    },
+    {
+      label: "Squat Max",
+      data: plan.map((data) => data.ormId.squatMax),
+      backgroundColor: ['blue'],
+      borderColor: "blue",
+      borderWidth: 2
+    },
+    {
+      label: "Deadlift Max",
+      data: plan.map((data) => data.ormId.deadliftMax),
+      backgroundColor: ['red'],
+      borderColor: "red",
+      borderWidth: 2
+    },
+    {
+      label: "Overhead Press Max",
+      data: plan.map((data) => data.ormId.overHeadPressMax),
+      backgroundColor: ['black'],
+      borderColor: "black",
+      borderWidth: 2
+    },
+
+  ],
+    
+  }
+
+  function progressDisplay() {
+    if (graphModal) {
+      return (
+        <LineChart chartData={planData}
+        onClick={progressGraphHandler}>
+        </LineChart>
+      )
+    }
+  }
 
 
   const [file, setFile] = useState({})
@@ -90,15 +163,16 @@ const UserProfile = () => {
             <h1>Choose Workout</h1>
           </div>
         </a>
-      ); else if (user.plan && !currentPlan.planEnd)
+      ); else if (user.plan)
       return (
 
-        <a className="anchor-text" href="/workout-list">
           <div className="glow-effect">
-            <img className="centerlogo" src={WIT_Mock} alt="Logo"></img>
-            <h1>View Plan</h1>
+            <button className="logo-button" onClick={progressGraphHandler}>
+            <img className="centerlogo" src={WIT_Mock} alt="Logo"></img>   
+        <h1 className='text-white-center'>View Progress!</h1>
+        </button>
           </div>
-        </a>
+        
       )
   }
   return (
@@ -140,12 +214,12 @@ const UserProfile = () => {
                     {
                       plan.map((item) => {
                         return (
-                          <tr key={item.id}>
+                          <tr>
                             <td>{item.name}</td>
                             <td>{item.planStart}</td>
-                            <td>{item.planEnd}</td>
+                            <td>{endPlanDisplay(item)}</td>
                             <td>
-                              <button onClick={activePlanHandler} value = {item.id} >
+                              <button onClick={activePlanHandler} value={item.id} >
                                 View Plan
                               </button>
                             </td>
@@ -155,12 +229,13 @@ const UserProfile = () => {
                     }
                   </tbody>
                 </table>
-                {modalDisplay()}
               </div>
             </div>
           </div>
         </div>
       </div>
+        {modalDisplay()} 
+        {progressDisplay()}
     </div >
 
   )

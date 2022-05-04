@@ -1,13 +1,11 @@
 import { Route, withRouter } from "react-router-dom";
 import Home from "../Home/Home";
 import Header from'../Header/Header';
-import React, {useState} from 'react';
+import React from 'react';
 import CreateAccount from "../Create-Account/CreateAccount";
 import Thankyou from "../ThankYou/Thankyou";
 import UserSignIn from "../Profile/UserSignIn";
 import UserProfile from "../Profile/UserProfile";
-import { useEffect } from "react";
-import axios from "axios";
 import Workoutlist from "../WorkoutPlans/Workoutlist";
 import WorkoutPlan from "../WorkoutPlans/WorkoutPlan";
 

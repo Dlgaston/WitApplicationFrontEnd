@@ -1,9 +1,22 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import OneRepMaxModal from '../modals/OneRepMaxModal/OneRepMaxModal';
+
+
 function FiveThreeOne(props) {
     const history = useHistory();
     const [user, setUser] = useState({});
+    const [plan, setPlan] = useState({
+        name: 'Five Three One',
+    })
+    const [orm, setOrm] = useState({
+        benchPressMax: 0,
+        squatMax: 0,
+        overHeadPressMax: 0,
+        deadliftMax: 0,
+      })
+      const [modal, setModal] = useState(false)
 
     useEffect(() => {
         const params = {
@@ -22,9 +35,19 @@ function FiveThreeOne(props) {
         });
     }, []);
 
-    const [plan, setPlan] = useState({
-        name: 'Five Three One',
-    })
+    const modalToggler = () => {
+        setModal(modal ? false : true);
+      }
+
+    function modalDisplay() {
+        if (modal) {
+          return (
+            <OneRepMaxModal planID={plan.id}  onClick={modalToggler} />
+            
+          )
+          }
+      }
+
     const planSubmitHandler = () => {
         axios.post(`http://localhost:8080/createPlan/${user.id}`, plan, {
             headers: {
@@ -33,17 +56,18 @@ function FiveThreeOne(props) {
         }).then((response) => {
             console.log(plan);
             setPlan(response.data)
-            history.push('/user-profile')
+            modalToggler()
         })
     }
 
+    
 
     return (
         <div className='body-background-two'>
             <div className="plan-body-container">
                 <div className="planbox-container">
-                    <div className='divflexcol'>
-                        <h1 className='text-white-center'>
+                     <div className='divflexcol'>
+                       <h1 className='text-white-center'>
                             Five Three One
                         </h1>
                         <div className='divrowgap'>
@@ -263,8 +287,10 @@ function FiveThreeOne(props) {
                     </div>
                 </div>
             </div>
+            {modalDisplay()}
         </div>
     )
 }
+
 
 export default FiveThreeOne
