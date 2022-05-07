@@ -9,7 +9,7 @@ const CreateAccount = () => {
     const [user, setUser] = useState({
         
         firstName: "",
-        LastName: "",
+        lastName: "",
         username: "",
         email: "",
         password: "",
@@ -46,7 +46,7 @@ const CreateAccount = () => {
                                 <input name="firstName" value={user.firstName} onChange={userChangeHandler} type="text" className="form-control" id="inputfirstName" placeholder='First Name'/>
                             </div>
                             <div className="flexbox-item flexbox-item2">
-                                <input name="LastName" value={user.LastName} onChange={userChangeHandler} type="text" className="form-control" id="inputLastName" placeholder='Last Name'/>
+                                <input name="lastName" value={user.lastName} onChange={userChangeHandler} type="text" className="form-control" id="inputLastName" placeholder='Last Name'/>
                             </div>
 
                             <div className="flexbox-item flexbox-item2">

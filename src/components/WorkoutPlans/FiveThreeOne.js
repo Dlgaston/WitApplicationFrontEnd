@@ -10,13 +10,7 @@ function FiveThreeOne(props) {
     const [plan, setPlan] = useState({
         name: 'Five Three One',
     })
-    const [orm, setOrm] = useState({
-        benchPressMax: 0,
-        squatMax: 0,
-        overHeadPressMax: 0,
-        deadliftMax: 0,
-      })
-      const [modal, setModal] = useState(false)
+    const [modal, setModal] = useState(false)
 
     useEffect(() => {
         const params = {
@@ -37,16 +31,16 @@ function FiveThreeOne(props) {
 
     const modalToggler = () => {
         setModal(modal ? false : true);
-      }
+    }
 
     function modalDisplay() {
         if (modal) {
-          return (
-            <OneRepMaxModal planID={plan.id}  onClick={modalToggler} />
-            
-          )
-          }
-      }
+            return (
+                <OneRepMaxModal planID={plan.id} onClick={modalToggler} />
+
+            )
+        }
+    }
 
     const planSubmitHandler = () => {
         axios.post(`http://localhost:8080/createPlan/${user.id}`, plan, {
@@ -60,14 +54,14 @@ function FiveThreeOne(props) {
         })
     }
 
-    
+
 
     return (
         <div className='body-background-two'>
             <div className="plan-body-container">
                 <div className="planbox-container">
-                     <div className='divflexcol'>
-                       <h1 className='text-white-center'>
+                    <div className='divflexcol'>
+                        <h1 className='text-white-center'>
                             Five Three One
                         </h1>
                         <div className='divrowgap'>
@@ -145,12 +139,12 @@ function FiveThreeOne(props) {
                                             <td>90% x 3 + repetitions</td>
                                             <td>95% x 1 + repetitions</td>
                                             <td>60% x 5 repetitions</td>
-                                        </tr>        
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div className='divflexcol'>
-                                <table className='workout-table' id='workout-list'>                                  
+                                <table className='workout-table' id='workout-list'>
                                     <thead id='workout-list'>
                                         <tr>
                                             <th>Barbell Overhead Press
@@ -195,7 +189,7 @@ function FiveThreeOne(props) {
                             </div>
                         </div>
                         <div className='workoutplan-container'>
-                        <div className='divflexcol'> 
+                            <div className='divflexcol'>
                                 <table className='workout-table' id='workout-list'>
                                     <thead>
                                         <tr>
@@ -239,7 +233,7 @@ function FiveThreeOne(props) {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className='divflexcol'> 
+                            <div className='divflexcol'>
                                 <table className='workout-table' id='workout-list'>
                                     <thead>
                                         <tr>

@@ -143,7 +143,7 @@ body {
 .p-container {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 10px;
     background-color: #ededed;
     border-radius: 5%;
     height: 50%;
@@ -478,4 +478,9 @@ body {
     cursor: pointer;
     height:350px;
     border-radius: 40%;
+}
+.profile-image {
+    height: 40%;
+    width: 90%;
+    margin: 0 auto;
 }

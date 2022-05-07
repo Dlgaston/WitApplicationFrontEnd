@@ -5,6 +5,7 @@ import '../Home/Home.css'
 import WIT_Mock from '../../images/WIT_MOCK.svg'
 import PlanModal from '../modals/PlanModal'
 import LineChart from '../modals/ProgressGraph/LineChart'
+import no_image from '../../images/no_image_available.png'
 
 
 const UserProfile = () => {
@@ -143,16 +144,18 @@ const UserProfile = () => {
     }
   }
 
-
-  const [file, setFile] = useState({})
-  const fileSelectHandler = (event) => {
-    setFile(event.target.files[0]);
-    console.log(event.target.files[0]);
+  const toggleImage = () => {
+    if(currentPlan.image) {
+      return (
+        <img className='profile-image' src={currentPlan.image} alt = "User" />
+      )       
+    } else {
+      return (
+        <img className='profile-image' src={no_image} alt ="Blank"/>
+      )
+    }
   }
-  const fileUploadHandler = () => {
-    axios.post(`http://localhost:8080/saveImage/${user.id}`, file)
 
-  }
 
   const logoChangeHandler = () => {
     if (!user.plan || (user.plan && currentPlan.planEnd !== null))
@@ -183,13 +186,9 @@ const UserProfile = () => {
             <div className="p-container">
               <h1 className="h1-underline">
                 {user.firstName} {user.lastName}
-              </h1>
-              <div>
-                <input type="file" onChange={fileSelectHandler} name="" id="" />
-                <button onClick={fileUploadHandler}>
-                  Upload
-                </button>
-              </div>
+              </h1> 
+                {toggleImage()}
+                <div className='h1-underline'></div>
             </div>
           </div>
           <div className="flexbox-item profilebox-item2" >

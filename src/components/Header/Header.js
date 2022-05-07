@@ -1,7 +1,10 @@
 import '../Home/Home.css'
 import Logo from '../../images/WIT_MOCK.png'
 import React from 'react';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {faBars} from '@fortawesome/free-solid-svg-icons'
+library.add(faBars)
 
 function Header() {
 

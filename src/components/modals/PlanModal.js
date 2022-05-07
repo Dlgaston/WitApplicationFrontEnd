@@ -5,15 +5,8 @@ import FiveThreeOneModal from './FiveThreeOneModal/FiveThreeOneModal';
 
 const PlanModal = (props) => {
   const [plan, setPlan] = useState({})
-  const [button, setButton] = useState(0)
-  const [orm, setOrm] = useState({
-    benchPressMax: 0,
-    squatMax: 0,
-    overHeadPressMax: 0,
-    deadliftMax: 0,
-  })
+
   useEffect(() => {
-    console.log(props.planID)
     axios.get(`http://localhost:8080/findSpecificPlan/${props.planID}`, {
       headers: {
         'Content-Type': 'application/json'
@@ -28,30 +21,23 @@ const PlanModal = (props) => {
     });
 
   }, []);
-  const ormChangeHandler = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    const tempOrm = { ...orm };
-    tempOrm[name] = value;
-    setOrm(tempOrm);
 
-  }
-
-  const ormSubmitHandler = () => {
-    axios.post(`http://localhost:8080/specificPlanORM/${plan.id}`, orm, {
+  const deletePlan = () => {
+    axios.delete(`http://localhost:8080/deletePlan/${plan.id}`, {
       headers: {
         'Content-Type': 'application/json'
       }
     }).then(() => {
+      
     })
   }
 
-  const planModalToggler =()=> {
-    if(plan.name === 'Five Three One') {
+  const planModalToggler = () => {
+    if (plan.name === 'Five Three One') {
       return (
-        <FiveThreeOneModal plan={plan}/>
+        <FiveThreeOneModal plan={plan} />
       )
-      
+
     } else {
       return (
         <div>
@@ -60,54 +46,24 @@ const PlanModal = (props) => {
       )
     }
   }
- 
 
-  if (!plan.ormId) {
-    return (
-      <div className='page-overlay'>
-        <div className='modal-table'>
-          <button className='close-button' onClick={props.onClick}> X
-          </button>
-          <div className='h1-underline'>{plan.name}</div>
-          <form className='modal-form-container'>
-            <div className="flexbox-item modal-form">
-              <label className='h1-underline' >BenchPress max</label>
-              <input name="benchPressMax" value={orm.benchPressMax} onChange={ormChangeHandler} type="number" className="form-control" />
-            </div>
-            <div className="flexbox-item modal-form">
-              <label >Squat max</label>
-              <input name="squatMax" value={orm.squatMax} onChange={ormChangeHandler} type="number" className="form-control" />
-            </div>
-            <div className="flexbox-item modal-form">
-              <label >deadlift max</label>
-              <input name="deadliftMax" value={orm.deadliftMax} onChange={ormChangeHandler} type="number" className="form-control" />
-            </div>
-            <div className="flexbox-item modal-form">
-              <label >Overhead Press max</label>
-              <input name="overHeadPressMax" value={orm.overHeadPressMax} onChange={ormChangeHandler} type="number" className="form-control" />
-            </div>
-            <button onClick={ormSubmitHandler} type='button'>Submit</button>
-          </form>
+
+
+  return (
+    <div className='page-overlay'>
+      <div className='modal-table'>
+        <button className='close-button' onClick={props.onClick}> X
+        </button>
+        <div className='divflexcol'>
+          <h1 className='h1-underline'>
+            {plan.name}
+          </h1>
+          {planModalToggler()}
         </div>
       </div>
+    </div>
+  )
 
-    )
-  } else {
-    return (
-      <div className='page-overlay'>
-        <div className='modal-table'>
-          <button className='close-button' onClick={props.onClick}> X
-          </button>
-          <div className='divflexcol'>
-            <h1 className='h1-underline'>
-              {plan.name}
-            </h1>
-            {planModalToggler()}
-          </div>
-        </div>
-      </div>
-    )
-  }
 }
 
 export default PlanModal
