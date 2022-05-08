@@ -16,14 +16,14 @@ body {
 }
 
 .body-background-one {
-    background-image: url(C:\Users\mma99\Desktop\WitApplicationFrontEnd\src\images\background.jpg);
+    background-image: url(https://res.cloudinary.com/wit-fitness-app/image/upload/v1652022803/background_wmgyt0.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: fixed;
 }
 
 .body-background-two{
-    background-image: url(C:\Users\mma99\Desktop\WitApplicationFrontEnd\src\images\rubber_surface.jpg);
+    background-image: url(https://res.cloudinary.com/wit-fitness-app/image/upload/v1652022864/rubber_surface_a03y9b.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: fixed;
@@ -484,3 +484,92 @@ body {
     width: 90%;
     margin: 0 auto;
 }
+
+.profile-slider-modal{
+  
+
+    height: 45rem;
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 50%;
+    right: 65%;
+    transform: translate(-50%, -50%);
+    background-color: #e0e0e0;
+    z-index: 1000;
+    border-radius: 5px;
+    
+}
+.slide {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0;
+    transition: opacity ease-in-out 0.4s;
+  }
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .active-anim {
+    opacity: 1;
+  }
+  .btn-slide {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #f1f1f1;
+    border: 1px solid rgba(34, 34, 34, 0.287);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .btn-slide img {
+    width: 25px;
+    height: 25px;
+    pointer-events: none;
+  }
+  .prev {
+    top: 50%;
+    left: -5rem;
+    transform: translateY(-60%);
+  }
+  .next {
+    top: 50%;
+    right: -5rem;
+    transform: translateY(-60%);
+  }
+  .graph-modal{
+    height: 45rem;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top:50%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    background-color: #e0e0e0;
+    padding:5px;
+    z-index: 1000;
+}
+.container-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+  }
+  .dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid #f1f1f1;
+    margin: 0 5px;
+    background: #f1f1f1;
+  }
+  .dot.active {
+    background: rgb(32, 32, 32);
+  }

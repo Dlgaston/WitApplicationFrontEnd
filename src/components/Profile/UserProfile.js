@@ -6,7 +6,7 @@ import WIT_Mock from '../../images/WIT_MOCK.svg'
 import PlanModal from '../modals/PlanModal'
 import LineChart from '../modals/ProgressGraph/LineChart'
 import no_image from '../../images/no_image_available.png'
-
+import Slider from '../modals/WorkoutPictureSlider/Slider'
 
 const UserProfile = () => {
   const [user, setUser] = useState({});
@@ -137,12 +137,21 @@ const UserProfile = () => {
   function progressDisplay() {
     if (graphModal) {
       return (
+        <div>
+          <div>
+        <Slider planArray={plan}>
+        </Slider>
+        </div>
+        <div>
         <LineChart chartData={planData}
         onClick={progressGraphHandler}>
         </LineChart>
+        </div>
+        </div>
       )
     }
   }
+ 
 
   const toggleImage = () => {
     if(currentPlan.image) {

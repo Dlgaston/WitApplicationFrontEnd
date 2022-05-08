@@ -30,7 +30,7 @@ const LineChart = ({chartData, onClick}) => {
 
     return (
         <div className='page-overlay'>
-        <div className='modal-table'>
+        <div className='graph-modal'>
           <button className='close-button' onClick={onClick}> X </button>
         <Line data={chartData}
         
