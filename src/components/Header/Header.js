@@ -1,16 +1,13 @@
 import '../Home/Home.css'
 import Logo from '../../images/WIT_MOCK.png'
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import {faBars} from '@fortawesome/free-solid-svg-icons'
-library.add(faBars)
+
+
 
 function Header() {
 
   const signOutSubmitHandler = () => {
-    console.log('sign out clicked');
-    localStorage.clear();
+      localStorage.clear();
   }
   const toggleHeader = () => {
     if (localStorage.getItem('loggedInUser')) {

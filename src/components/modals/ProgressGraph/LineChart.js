@@ -34,7 +34,7 @@ const LineChart = ({chartData, onClick}) => {
           <button className='close-button' onClick={onClick}> X </button>
         <Line data={chartData}
         
-        height = {800}
+        height = {720}
         width = {1200}/>
         </div>
       </div>    

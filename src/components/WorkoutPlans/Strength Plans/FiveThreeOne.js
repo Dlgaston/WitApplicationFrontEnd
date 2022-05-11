@@ -1,11 +1,10 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import OneRepMaxModal from '../modals/OneRepMaxModal/OneRepMaxModal';
+import OneRepMaxModal from '../../modals/OneRepMaxModal/OneRepMaxModal';
 
 
 function FiveThreeOne(props) {
-    const history = useHistory();
     const [user, setUser] = useState({});
     const [plan, setPlan] = useState({
         name: 'Five Three One',
@@ -57,7 +56,6 @@ function FiveThreeOne(props) {
 
 
     return (
-        <div className='body-background-two'>
             <div className="plan-body-container">
                 <div className="planbox-container">
                     <div className='divflexcol'>
@@ -280,7 +278,6 @@ function FiveThreeOne(props) {
                         </div>
                     </div>
                 </div>
-            </div>
             {modalDisplay()}
         </div>
     )

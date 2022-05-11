@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import '../Home/Home.css'
-import FiveThreeOne from './FiveThreeOne';
+import StrengthCategory from './Categories/StrengthCategory';
 
 const Workoutlist = () => {
     const [user, setUser] = useState({});
@@ -30,10 +30,10 @@ const Workoutlist = () => {
     }
 
     function tableDisplay() {
-        if (table === 'Five Three One') {
+        if (table === 'Strength') {
             return (
-                <div >
-                    <FiveThreeOne 
+                <div className="flexbox-item listbox-item2"  >
+                    <StrengthCategory 
                     onClick = {setTableState}
                     />
                 </div>
@@ -41,42 +41,7 @@ const Workoutlist = () => {
         } else {
             return (
                 <div className="flexbox-item listbox-item2" >
-                    <table id='workout-list'>
-                        <thead>
-                            <tr>
-                                <th>Workout Plan Name</th>
-                                <th>Level</th>
-                                <th>Type</th>
-                                <th>Weeks of program</th>
-                                <th>Days of training</th>
-                                <th>Choose Workout</th>
-                            </tr>
-                        </thead>
-                        <tbody id='workout-list'>
-                            <tr>
-                                <td>
-                                    Five Three One
-                                </td>
-                                <td>
-                                    Beginner
-                                </td>
-                                <td>
-                                    Strength
-                                </td>
-                                <td>
-                                    4
-                                </td>
-                                <td>
-                                    4
-                                </td>
-                                <td>
-                                    <button className='workout-list-button' onClick={setTableState} name = 'Five Three One'>
-                                        View Plan
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                  
                 </div>
             )
         }
@@ -89,6 +54,11 @@ const Workoutlist = () => {
             <div className="body-container">
                 <div className="flexbox-container">
                     <div className="flexbox-item listbox-item1" >
+                        <button className='workout-list-category text-white-left' id='strength' onClick={setTableState} name='Strength'>Strength</button>
+                        <button className='workout-list-category text-white-left' id='hypertrophy'>Hypertrophy</button>
+                        <button className='workout-list-category text-white-left' id='cardio'>
+                            
+                            Cardio</button>
                     </div>
                    {tableDisplay()}
                 </div>

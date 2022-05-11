@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import '../Home/Home.css'
-import FiveThreeOneModal from './FiveThreeOneModal/FiveThreeOneModal';
-
+import FiveThreeOneModal from './WorkoutPlanModal/FiveThreeOneModal';
+import FiveByFiveModal from './WorkoutPlanModal/FiveByFiveModal';
 const PlanModal = (props) => {
   const [plan, setPlan] = useState({})
 
@@ -38,11 +38,9 @@ const PlanModal = (props) => {
         <FiveThreeOneModal plan={plan} />
       )
 
-    } else {
+    } else if(plan.name === 'Five By Five'){
       return (
-        <div>
-          Not Working
-        </div>
+        <FiveByFiveModal plan={plan}/>
       )
     }
   }

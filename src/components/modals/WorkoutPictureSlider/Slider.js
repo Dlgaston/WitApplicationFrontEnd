@@ -31,15 +31,14 @@ const Slider = ({planArray}) => {
                     <div
                      key={obj.id}
                     className={slideIndex === index + 1 ? "slide active-anim" : "slide"}>
-                        <h1 className='h1-underline'>
+                        <h1 className='h1-underline text-white-center'>
                             {obj.planStart}
                         </h1>
                         <img src={obj.image} alt = ""/>
                     </div>
                 )
             })}
-            <BtnSlider moveSlide ={nextSlide} direction={"next"} />
-            <BtnSlider moveSlide={prevSlide} direction={"prev"} />
+            
 
             <div className='container-dots'>
                 {planArray.map((item,index) => (

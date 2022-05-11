@@ -2,8 +2,6 @@
 import React, {useState} from 'react'
 const FiveThreeOneModal = (props) => {
     const [button, setButton] = useState(0)
-  
-console.log(props.plan + " Child comp log")
 
     const nextButtonHandler = () => {
   

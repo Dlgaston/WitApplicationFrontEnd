@@ -7,6 +7,8 @@ import PlanModal from '../modals/PlanModal'
 import LineChart from '../modals/ProgressGraph/LineChart'
 import no_image from '../../images/no_image_available.png'
 import Slider from '../modals/WorkoutPictureSlider/Slider'
+import{FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faCircleMinus} from '@fortawesome/free-solid-svg-icons'
 
 const UserProfile = () => {
   const [user, setUser] = useState({});
@@ -79,6 +81,29 @@ const UserProfile = () => {
 
     }
   }
+
+  const deletePlan = (event) => {
+    console.log(event)
+    axios.delete(`http://localhost:8080/deletePlan/${event.target.value}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+  }).then(()=>{
+    axios.get(`http://localhost:8080/planHistory/${user.id}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+
+    }).then((response) => {
+      setPlan(response.data);
+    }).catch((error) => {
+      console.log('error in getting workouts')
+    });
+  }).catch((error) => {
+    console.log('did not delete plan')
+  })
+}
+
   const activePlanHandler = (event) => {
     setActivePlan(event.target.value)
     setModal(modal ? false : true);
@@ -206,8 +231,14 @@ const UserProfile = () => {
           <div className="flexbox-item profilebox-item3" >
             <div className="history-container">
               <h1 className="h1-underline">
+                <div className='h1-marginright'>
                 Plan History
+                </div>
+                <div>
+                  Yadada
+                </div>
               </h1>
+              
               <div>
                 <table id='history-list'>
                   <thead>
@@ -222,8 +253,8 @@ const UserProfile = () => {
                     {
                       plan.map((item) => {
                         return (
-                          <tr>
-                            <td>{item.name}</td>
+                          <tr className='table'> 
+                            <td>{item.name} <button className='deleteButton' onClick={deletePlan} value={item.id}>Delete Plan</button></td>
                             <td>{item.planStart}</td>
                             <td>{endPlanDisplay(item)}</td>
                             <td>

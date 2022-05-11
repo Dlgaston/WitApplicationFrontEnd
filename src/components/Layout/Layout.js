@@ -7,7 +7,7 @@ import Thankyou from "../ThankYou/Thankyou";
 import UserSignIn from "../Profile/UserSignIn";
 import UserProfile from "../Profile/UserProfile";
 import Workoutlist from "../WorkoutPlans/Workoutlist";
-import WorkoutPlan from "../WorkoutPlans/WorkoutPlan";
+
 
 const Layout = () => {
 
@@ -19,7 +19,6 @@ const toggleRoutes = () =>{
         <Route exact path ="/" component={UserProfile}/>
         <Route path="/user-profile" component={UserProfile}/>
         <Route path="/workout-list" component={Workoutlist}/>
-        <Route path ="/workout-plan" component={WorkoutPlan}/>
       </div>
     )
    

@@ -9,6 +9,11 @@ body {
     color: #ededed;
     text-align: center;
 }
+.text-white-left {
+    color: #ededed;
+    text-align: left;
+    font-size: 4rem;
+}
 
 .body-container {
     height: 95vh;
@@ -193,7 +198,10 @@ body {
     text-shadow: 2px 3px 6px #2e2e2e;
     text-align: center;
     margin-bottom: 0;
+    display: flex;
+    justify-content: center;
 }
+
 
 .form-container {
     display: flex;
@@ -259,14 +267,15 @@ body {
 
 .listbox-item1 {
     display: flex;
-    width: 40%;
+    width: 35%;
     justify-content: center;
     align-items: center;
+    gap:3rem;
 
 }
 
 .listbox-item2 {
-    width: 60%;
+    width: 65%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -326,13 +335,13 @@ body {
 .workout-table {
     margin: auto;
     min-width: 500px;
-    min-height: 300px;
+    min-height: 335px;
 
 }
 
 .plan-body-container {
-    height: 95vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     display: flex;
 }
 
@@ -370,6 +379,39 @@ body {
     padding-left: 1rem;
     font-size: larger
 }
+.fa-cog{
+    color: red;
+    opacity:0;
+    transition:opacity 0.2s linear;
+    -moz-transition: opacity 0.2s linear;
+    -webkit-transition: opacity 0.2s linear;
+    position: absolute;
+    right: 20%; 
+    cursor: pointer;
+}
+.table:hover .deleteButton {
+   opacity: 1;
+   transition:opacity 0.5s linear;
+   -moz-transition: opacity 0.5s linear;
+   -webkit-transition: opacity 0.5s linear;
+}
+.deleteButton{
+    background-color: red;
+    color: white;
+    opacity:0;
+    transition:opacity 0.2s linear;
+    -moz-transition: opacity 0.2s linear;
+    -webkit-transition: opacity 0.2s linear;
+    position: absolute;
+    right: 20%;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px rgb(12, 12, 12);
+    font-size: large;
+    text-decoration: none;
+}
 
 #history-list {
     font-family: Arial, Helvetica, sans-serif;
@@ -385,7 +427,7 @@ body {
 }
 
 #history-list tr:nth-child(even) {
-    background-color: #c7c7c7;
+    background-color: #868686;
 }
 
 #history-list tr:hover {
@@ -496,7 +538,7 @@ body {
     top: 50%;
     right: 65%;
     transform: translate(-50%, -50%);
-    background-color: #e0e0e0;
+    background-color: #404142;
     z-index: 1000;
     border-radius: 5px;
     
@@ -510,7 +552,7 @@ body {
   }
   .slide img {
     width: 100%;
-    height: 100%;
+    height: 85%;
     object-fit: cover;
   }
   .active-anim {
@@ -561,6 +603,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     display: flex;
+    cursor: pointer;
   }
   .dot {
     width: 20px;
@@ -573,3 +616,70 @@ body {
   .dot.active {
     background: rgb(32, 32, 32);
   }
+  .workout-list-category {
+    height: 8rem;
+    width: 35rem;
+    border-radius: 1rem;
+    cursor: pointer;
+  }
+  #cardio{
+    background-image:url("https://res.cloudinary.com/wit-fitness-app/image/upload/v1652108239/Cardio_Banner_vp6jqk.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -10px;
+  }
+  #strength{
+    background-image:url("https://res.cloudinary.com/wit-fitness-app/image/upload/v1652108934/Strength_Banner_trq5vp.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -35px;
+
+  }
+  #hypertrophy{
+    background-image:url("https://res.cloudinary.com/wit-fitness-app/image/upload/v1652109632/hypertrophy_Banner_khyroe.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -100px;
+    background-color: black;
+    background-position-x: 70px;
+  }
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
+
+.hide {
+    display: none;
+}
+
+.valid {
+    color: limegreen;
+    margin-left: 0.25rem;
+}
+
+.invalid {
+    color: red;
+    margin-left: 0.25rem;
+}
+
+.errmsg {
+    background-color: lightpink;
+    color: firebrick;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.line {
+    display: inline-block;
+}
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #000;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+}

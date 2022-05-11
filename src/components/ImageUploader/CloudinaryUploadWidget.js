@@ -6,23 +6,6 @@ import { } from '@cloudinary/react'
 
 const CloudinaryUploadWidget = (props) => {
   const history = useHistory();
-
-  
-  // useEffect(() => {
-  //   axios.get(`http://localhost:8080/findSpecificPlan/${props.planID}`, {
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-
-  //   }).then((response) => {
-  //     setPlan(response.data);
-  //     console.log(response.data)
-  //   }).catch((error) => {
-  //     console.log('error in getting plan')
-
-  //   });
-
-  // }, []);
  
   function showUploadWidget() {
    
@@ -67,7 +50,6 @@ const CloudinaryUploadWidget = (props) => {
     },
       (err, result) => {
         if (!err && result && result.event === "success") {
-          console.log(result.info)
           const plan = {
             image: result.info.url
           }
@@ -93,11 +75,3 @@ const CloudinaryUploadWidget = (props) => {
 }
 
 export default CloudinaryUploadWidget
-
-// document.getElementById("upload_widget").addEventListener(
-//     "click",
-//     function () {
-//       myWidget.open();
-//     },
-//     false
-//   );
