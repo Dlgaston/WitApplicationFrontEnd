@@ -4,7 +4,8 @@ import { useHistory } from 'react-router-dom';
 
 const UserSignIn = () => {
   const history = useHistory();
-  
+  const errMsg = useState('Invalid E-mail or Password');
+  const [toggleErr, setToggleErr] =useState(false)
   const[signInUser, setSignInUser] = useState({
     email:'',
     password:''
@@ -21,7 +22,7 @@ const UserSignIn = () => {
     .then(response => {
       localStorage.setItem('loggedInUser',response.data.id);
       history.push('/user-profile')
-    })
+    }).catch(setToggleErr(true))
   }
 
   return (
@@ -33,6 +34,9 @@ const UserSignIn = () => {
                     <div className="flexbox-item flexbox-item2" >
                         <h1 className='text-white-center'>Welcome back!</h1>
                         <form className='form-container'>
+                          <div className="flexbox-item flexbox-item2">
+                              {toggleErr ? <p className='errmsg'>{errMsg}</p>:null}
+                          </div>
                             <div className="flexbox-item flexbox-item2">
                                 <input name="email" value={signInUser.email} onChange={userChangeHandler} type="email" className="form-control" placeholder='JohnDoe@gmail.com'/>
                             </div>
@@ -42,6 +46,7 @@ const UserSignIn = () => {
                             <div className="flexbox-item flexbox-item2">
                                 <button onClick={signInSubmitHander} className="submit-button" type="button">Sign In</button>
                             </div>
+                            <p>Don't have an account?  <a href='create-account'>Create one!</a></p>
                         </form>
                     </div>
                     <div className="flexbox-item flexbox-item3" ></div>

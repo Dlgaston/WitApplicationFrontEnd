@@ -11,7 +11,7 @@ const USER_REGEX = /^[a-zA-Z][A-z0-9-_]{3,23}$/
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
 const CreateAccount = () => {
-
+    const [toggleErr, setToggleErr] =useState(false)
     const history = useHistory();
     const userRef = useRef();
     const errRef = useRef();
@@ -34,7 +34,7 @@ const CreateAccount = () => {
     const [validMatch, setValidMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
 
-    const [errMsg, setErrMsg] = useState('');
+    const errMsg = useState('Email already in use');
 
     useEffect(() => {
         userRef.current.focus();
@@ -47,17 +47,10 @@ const CreateAccount = () => {
 
     useEffect(() => {
         const result = PWD_REGEX.test(user.password);
-        console.log(result)
-        console.log(user.password)
         setValidPwd(result);
         const match = user.password === matchPwd
         setValidMatch(match)
     }, [user.password, matchPwd])
-
-    useEffect(() => {
-        setErrMsg("Please enter the information correctly");
-
-    }, [user, password, matchPwd])
 
     const userChangeHandler = (event) => {
         const name = event.target.name;
@@ -70,9 +63,7 @@ const CreateAccount = () => {
         axios.post("http://localhost:8080/create-account", user).then((response) => {
             localStorage.setItem("loggedInUser", response.data.id);
             history.push("/user-profile");
-        }).catch((error) => {
-            console.log("throwing error on createAccount");
-        });
+        }).catch(setToggleErr(true));
     }
 
 
@@ -86,15 +77,18 @@ const CreateAccount = () => {
                     <div className="flexbox-item flexbox-item2" >
                         <h1 className='text-white-center'>Sign up here!</h1>
                         <form className='form-container'>
+                        <div className="flexbox-item flexbox-item2">
+                              {toggleErr ? <p className='errmsg'>{errMsg}</p>:null}
+                          </div>
                             <div className="flexbox-item flexbox-item2">
                                 <input name="firstName" value={user.firstName} onChange={userChangeHandler} type="text" className="form-control" placeholder='First Name' ref={userRef} />
                             </div>
                             <div className="flexbox-item flexbox-item2">
-                                <input name="lastName" value={user.lastName} onChange={userChangeHandler} type="text" className="form-control"  placeholder='Last Name' />
+                                <input name="lastName" value={user.lastName} onChange={userChangeHandler} type="text" className="form-control" placeholder='Last Name' />
                             </div>
 
                             <div className="flexbox-item flexbox-item2">
-                                <input name="email" value={user.email} onChange={userChangeHandler} type="email" className="form-control"  placeholder='JohnDoe@Email.com' autoComplete='off'
+                                <input name="email" value={user.email} onChange={userChangeHandler} type="email" className="form-control" placeholder='JohnDoe@Email.com' autoComplete='off'
                                 />
                             </div>
                             <div className="flexbox-item flexbox-item2">
@@ -137,7 +131,7 @@ const CreateAccount = () => {
 
                             <div className="flexbox-item flexbox-item2">
                                 <div className='form-regex'>
-                                    <input onChange={(e) => setMatchPwd(e.target.value)} type="password" className="form-control"  placeholder='Confirm Password'
+                                    <input onChange={(e) => setMatchPwd(e.target.value)} type="password" className="form-control" placeholder='Confirm Password'
                                         required aria-invalid={validMatch ? "false" : "true"} aria-describedby="confirmnote" onFocus={() => setMatchFocus(true)} onBlur={() => setMatchFocus(false)} />
                                     <div><span className={validMatch && matchPwd ? "valid" : "hide"}>
                                         <FontAwesomeIcon icon={faCheck} />
@@ -149,17 +143,18 @@ const CreateAccount = () => {
                                 </div>
 
                                 <p id='confirmnote' className={matchFocus && !validMatch ? "instructions" : "offscreen"}><FontAwesomeIcon icon={faCircleInfo} /> <br />
-                                Passwords must match </p>
+                                    Passwords must match </p>
                             </div>
                             <div className="flexbox-item flexbox-item2">
 
-                        <button disabled={!validUser || !validPwd || !validMatch ? true : false} onClick={createAccountSubmitHandler} className="submit-button" type="button">Sign up</button>
+                                <button disabled={!validUser || !validPwd || !validMatch || !user.email ? true : false} onClick={createAccountSubmitHandler} className="submit-button" type="button">Sign up</button>
+                            </div>
+                            <p>Already a registered user?  <a href='sign-in'>Sign in</a></p>
+                        </form>
                     </div>
-                </form>
-            </div>
-            <div className="flexbox-item flexbox-item3" ></div>
-        </div>
-        </div >
+                    <div className="flexbox-item flexbox-item3" ></div>
+                </div>
+            </div >
         </div >
 
     )
