@@ -153,7 +153,7 @@ const CreateAccount = () => {
                             </div>
                             <div className="flexbox-item flexbox-item2">
 
-                        <button onClick={createAccountSubmitHandler} className="submit-button" type="button">Sign up</button>
+                        <button disabled={!validUser || !validPwd || !validMatch ? true : false} onClick={createAccountSubmitHandler} className="submit-button" type="button">Sign up</button>
                     </div>
                 </form>
             </div>
