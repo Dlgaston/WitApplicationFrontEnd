@@ -683,3 +683,8 @@ body {
     position: relative;
     bottom: -10px;
 }
+.form-regex{
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}

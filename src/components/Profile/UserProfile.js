@@ -7,8 +7,6 @@ import PlanModal from '../modals/PlanModal'
 import LineChart from '../modals/ProgressGraph/LineChart'
 import no_image from '../../images/no_image_available.png'
 import Slider from '../modals/WorkoutPictureSlider/Slider'
-import{FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faCircleMinus} from '@fortawesome/free-solid-svg-icons'
 
 const UserProfile = () => {
   const [user, setUser] = useState({});
@@ -233,9 +231,6 @@ const UserProfile = () => {
               <h1 className="h1-underline">
                 <div className='h1-marginright'>
                 Plan History
-                </div>
-                <div>
-                  Yadada
                 </div>
               </h1>
               

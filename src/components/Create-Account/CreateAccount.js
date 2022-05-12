@@ -16,6 +16,7 @@ const CreateAccount = () => {
     const userRef = useRef();
     const errRef = useRef();
     const [user, setUser] = useState({
+
         firstName: "",
         lastName: "",
         username: "",
@@ -41,19 +42,17 @@ const CreateAccount = () => {
 
     useEffect(() => {
         const result = USER_REGEX.test(user.username);
-        console.log(result)
-        console.log(user);
         setValidUser(result)
-    }, [user])
+    }, [user.username])
 
     useEffect(() => {
-        const result = USER_REGEX.test(password);
+        const result = PWD_REGEX.test(user.password);
         console.log(result)
-        console.log(password)
+        console.log(user.password)
         setValidPwd(result);
-        const match = password === matchPwd
+        const match = user.password === matchPwd
         setValidMatch(match)
-    }, [password, matchPwd])
+    }, [user.password, matchPwd])
 
     useEffect(() => {
         setErrMsg("Please enter the information correctly");
@@ -85,48 +84,83 @@ const CreateAccount = () => {
                     <div className="flexbox-item flexbox-item1" >
                     </div>
                     <div className="flexbox-item flexbox-item2" >
-                        <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                         <h1 className='text-white-center'>Sign up here!</h1>
                         <form className='form-container'>
                             <div className="flexbox-item flexbox-item2">
-                                <input name="firstName" value={user.firstName} onChange={userChangeHandler} type="text" className="form-control" id="inputfirstName" placeholder='First Name' ref={userRef} />
+                                <input name="firstName" value={user.firstName} onChange={userChangeHandler} type="text" className="form-control" placeholder='First Name' ref={userRef} />
                             </div>
                             <div className="flexbox-item flexbox-item2">
-                                <input name="lastName" value={user.lastName} onChange={userChangeHandler} type="text" className="form-control" id="inputLastName" placeholder='Last Name' />
+                                <input name="lastName" value={user.lastName} onChange={userChangeHandler} type="text" className="form-control"  placeholder='Last Name' />
                             </div>
 
                             <div className="flexbox-item flexbox-item2">
-                                <input name="email" value={user.email} onChange={userChangeHandler} type="email" className="form-control" id="inputEmail" placeholder='JohnDoe@Email.com' autoComplete='off'
+                                <input name="email" value={user.email} onChange={userChangeHandler} type="email" className="form-control"  placeholder='JohnDoe@Email.com' autoComplete='off'
                                 />
                             </div>
                             <div className="flexbox-item flexbox-item2">
-                                <label htmlFor="inputUsername"> Username:
-                                    <span className={validUser ? "valid" : "hide"}>
+                                <div className='form-regex'>
+                                    <input name="username" value={user.username} onChange={userChangeHandler} type="username" className="form-control" placeholder='Username' autoComplete='off'
+                                        required aria-invalid={validUser ? "false" : "true"} aria-describedby="uidnote" onFocus={() => setUserFocus(true)} onBlur={() => setUserFocus(false)} />
+                                    <div><span className={validUser ? "valid" : "hide"}>
                                         <FontAwesomeIcon icon={faCheck} />
                                     </span>
-                                    <span className={validUser || user ? "hide" : "invalid"}>
-                                        <FontAwesomeIcon icon={faXmark} />
-                                    </span>
-                                </label>
-                                <input name="username" value={user.username} onChange={(e) => setUser(e.target.value)} type="username" className="form-control" id="inputUsername" placeholder='Credaence' autoComplete='off'
-                                    required aria-invalid={validUser ? "false" : "true"} aria-describedby="uidnote" onFocus={() => setUserFocus(true)} onBlur={() => setUserFocus(false)} />
-                                <p id='uidnote' className={userFocus && user && !validUser ? "instructions" : "offscreen"}><FontAwesomeIcon icon={faCircleInfo} /> <br />
+                                        <span className={validUser || !user.username ? "hide" : "invalid"}>
+                                            <FontAwesomeIcon icon={faXmark} />
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <p id='uidnote' className={userFocus && user.username && !validUser ? "instructions" : "offscreen"}><FontAwesomeIcon icon={faCircleInfo} /> <br />
                                     4 to 24 characters. <br />
                                     Must begin with a letter. <br />
                                     Letters, numbers, underscores and hyphens allowed. </p>
                             </div>
                             <div className="flexbox-item flexbox-item2">
-                                <input name="password" value={user.password} onChange={userChangeHandler} type="password" className="form-control" id="inputPassword" placeholder='Password' />
+                                <div className='form-regex'>
+                                    <input name="password" value={user.password} onChange={userChangeHandler} type="password" className="form-control" placeholder='Password'
+                                        required aria-invalid={validPwd ? "false" : "true"} aria-describedby="pwdnote" onFocus={() => setPwdFocus(true)} onBlur={() => setPwdFocus(false)} />
+                                    <div><span className={validPwd ? "valid" : "hide"}>
+                                        <FontAwesomeIcon icon={faCheck} />
+                                    </span>
+                                        <span className={validPwd || !user.password ? "hide" : "invalid"}>
+                                            <FontAwesomeIcon icon={faXmark} />
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <p id='pwdnote' className={pwdFocus && !validPwd ? "instructions" : "offscreen"}><FontAwesomeIcon icon={faCircleInfo} /> <br />
+                                    8 to 24 characters. <br />
+                                    Must include uppercase and lowercase letters, a number and a special character. <br />
+                                    Allowed special characters: <span aria-label='exclamation mark'>!</span> <span aria-label='at symbol'>@</span><span aria-label='hashtag'>#</span>
+                                    <span aria-label='dollar sign'>$</span><span aria-label='percet'>%</span>. </p>
                             </div>
-                            <div>
-                                <button onClick={createAccountSubmitHandler} className="submit-button" type="button">Sign up</button>
+
+                            <div className="flexbox-item flexbox-item2">
+                                <div className='form-regex'>
+                                    <input onChange={(e) => setMatchPwd(e.target.value)} type="password" className="form-control"  placeholder='Confirm Password'
+                                        required aria-invalid={validMatch ? "false" : "true"} aria-describedby="confirmnote" onFocus={() => setMatchFocus(true)} onBlur={() => setMatchFocus(false)} />
+                                    <div><span className={validMatch && matchPwd ? "valid" : "hide"}>
+                                        <FontAwesomeIcon icon={faCheck} />
+                                    </span>
+                                        <span className={validMatch || !matchPwd ? "hide" : "invalid"}>
+                                            <FontAwesomeIcon icon={faXmark} />
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <p id='confirmnote' className={matchFocus && !validMatch ? "instructions" : "offscreen"}><FontAwesomeIcon icon={faCircleInfo} /> <br />
+                                Passwords must match </p>
                             </div>
-                        </form>
+                            <div className="flexbox-item flexbox-item2">
+
+                        <button onClick={createAccountSubmitHandler} className="submit-button" type="button">Sign up</button>
                     </div>
-                    <div className="flexbox-item flexbox-item3" ></div>
-                </div>
+                </form>
             </div>
+            <div className="flexbox-item flexbox-item3" ></div>
         </div>
+        </div >
+        </div >
 
     )
 }
