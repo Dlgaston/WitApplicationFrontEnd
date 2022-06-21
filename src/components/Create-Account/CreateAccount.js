@@ -9,12 +9,11 @@ import { faCheck, faXmark, faCircleInfo } from '@fortawesome/free-solid-svg-icon
 
 const USER_REGEX = /^[a-zA-Z][A-z0-9-_]{3,23}$/
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
-
+const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
 const CreateAccount = () => {
-    const [toggleErr, setToggleErr] =useState(false)
+    const [toggleErr, setToggleErr] = useState(false)
     const history = useHistory();
     const userRef = useRef();
-    const errRef = useRef();
     const [user, setUser] = useState({
 
         firstName: "",
@@ -23,10 +22,13 @@ const CreateAccount = () => {
         email: "",
         password: "",
     })
+
+    const [validEmail, setValidEmail] = useState(false)
+    const [emailFocus, setEmailFocus] = useState(false)
+
     const [validUser, setValidUser] = useState(false);
     const [userFocus, setUserFocus] = useState(false);
 
-    const [password, setPassword] = useState('');
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
 
@@ -39,6 +41,11 @@ const CreateAccount = () => {
     useEffect(() => {
         userRef.current.focus();
     }, [])
+
+    useEffect(() => {
+        const result = EMAIL_REGEX.test(user.email);
+        setValidEmail(result)
+    }, [user.email])
 
     useEffect(() => {
         const result = USER_REGEX.test(user.username);
@@ -77,9 +84,9 @@ const CreateAccount = () => {
                     <div className="flexbox-item flexbox-item2" >
                         <h1 className='text-white-center'>Sign up here!</h1>
                         <form className='form-container'>
-                        <div className="flexbox-item flexbox-item2">
-                              {toggleErr ? <p className='errmsg'>{errMsg}</p>:null}
-                          </div>
+                            <div className="flexbox-item flexbox-item2">
+                                {toggleErr ? <p className='errmsg'>{errMsg}</p> : null}
+                            </div>
                             <div className="flexbox-item flexbox-item2">
                                 <input name="firstName" value={user.firstName} onChange={userChangeHandler} type="text" className="form-control" placeholder='First Name' ref={userRef} />
                             </div>
@@ -88,8 +95,19 @@ const CreateAccount = () => {
                             </div>
 
                             <div className="flexbox-item flexbox-item2">
-                                <input name="email" value={user.email} onChange={userChangeHandler} type="email" className="form-control" placeholder='JohnDoe@Email.com' autoComplete='off'
-                                />
+                                <div className='form-regex'>
+                                    <input name="email" value={user.email} onChange={userChangeHandler} type="email" className="form-control" placeholder='JohnDoe@Email.com' autoComplete='off'
+                                        required aria-invalid={validEmail ? "false" : "true"} aria-describedby="emailnote" onFocus={() => setEmailFocus(true)} onBlur={() => setEmailFocus(false)} />
+                                    <div><span className={validEmail ? "valid" : "hide"}>
+                                        <FontAwesomeIcon icon={faCheck} />
+                                    </span>
+                                        <span className={validEmail || !user.email ? "hide" : "invalid"}>
+                                            <FontAwesomeIcon icon={faXmark} />
+                                        </span>
+                                    </div>
+                                </div>
+                                <p id='emailnote' className={emailFocus && user.email && !validEmail ? "instructions" : "offscreen"}><FontAwesomeIcon icon={faCircleInfo} /> <br />
+                                   Please Enter A Valid Email Address</p>
                             </div>
                             <div className="flexbox-item flexbox-item2">
                                 <div className='form-regex'>
@@ -147,7 +165,7 @@ const CreateAccount = () => {
                             </div>
                             <div className="flexbox-item flexbox-item2">
 
-                                <button disabled={!validUser || !validPwd || !validMatch || !user.email ? true : false} onClick={createAccountSubmitHandler} className="submit-button" type="button">Sign up</button>
+                                <button disabled={!validUser || !validPwd || !validMatch || !validEmail ? true : false} onClick={createAccountSubmitHandler} className="submit-button" type="button">Sign up</button>
                             </div>
                             <p>Already a registered user?  <a href='sign-in'>Sign in</a></p>
                         </form>
